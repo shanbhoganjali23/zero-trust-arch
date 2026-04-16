@@ -1,0 +1,27 @@
+<h1>Invoices</h1>
+<form onsubmit="return addInvoice()">
+    <label for="invoice_number">Invoice Number:</label>
+    <input type="text" id="invoice_number" placeholder="Invoice Number"/><br>
+    <input type="file" id="invoice_file" placeholder="Please attach the invoice"/><br>
+    <button type="submit">Add Invoice</button>  
+</form>
+<a href="http://127.0.0.1:5000/finance-app">Back to Home Page</a>
+<div id="invoice-display"></div>
+<script>
+    let invoiceList = [];
+    function addInvoice() {
+        event.preventDefault();
+        const invoice = {
+            invoice_number: document.getElementById('invoice_number').value,
+            invoice_file: document.getElementById('invoice_file').files[0]
+        }
+        invoiceList.push(invoice);
+        let invoiceDisplay = document.getElementById('invoice-display');
+        invoiceDisplay.innerHTML = '';
+        for(let i = 0; i<invoiceList.length; i++){
+            let invoiceUrl = URL.createObjectURL(invoiceList[i].invoice_file);
+            invoiceDisplay.innerHTML += `<p>${invoiceList[i].invoice_number}: <a href="${invoiceUrl}" target="_blank">View Invoice</a></p>`;
+        }
+        return false;
+    }
+</script>
