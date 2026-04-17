@@ -13,4 +13,4 @@ def invoices():
     return render_template('/finance-app-invoices.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5002, debug=True)
