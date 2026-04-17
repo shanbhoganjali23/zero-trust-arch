@@ -1,0 +1,118 @@
+{
+  "realm": "enterprise-zt",
+  "enabled": true,
+  "displayName": "Enterprise Zero Trust",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "failureFactor": 3,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "maxDeltaTimeSeconds": 43200,
+  "accessTokenLifespan": 1800,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "roles": {
+    "realm": [
+      { "name": "HR", "description": "Human Resources staff" },
+      { "name": "Finance", "description": "Finance department staff" },
+      { "name": "Developer", "description": "Software developer" },
+      { "name": "Admin", "description": "System administrator" },
+      { "name": "SecurityAnalyst", "description": "Security operations analyst" }
+    ]
+  },
+  "users": [
+    {
+      "username": "alice_hr",
+      "enabled": true,
+      "email": "alice@enterprise.local",
+      "firstName": "Alice",
+      "lastName": "HR",
+      "credentials": [{ "type": "password", "value": "password123", "temporary": false }],
+      "realmRoles": ["HR"],
+      "requiredActions": ["CONFIGURE_TOTP"]
+    },
+    {
+      "username": "bob_finance",
+      "enabled": true,
+      "email": "bob@enterprise.local",
+      "firstName": "Bob",
+      "lastName": "Finance",
+      "credentials": [{ "type": "password", "value": "password123", "temporary": false }],
+      "realmRoles": ["Finance"],
+      "requiredActions": ["CONFIGURE_TOTP"]
+    },
+    {
+      "username": "charlie_dev",
+      "enabled": true,
+      "email": "charlie@enterprise.local",
+      "firstName": "Charlie",
+      "lastName": "Dev",
+      "credentials": [{ "type": "password", "value": "password123", "temporary": false }],
+      "realmRoles": ["Developer"],
+      "requiredActions": ["CONFIGURE_TOTP"]
+    },
+    {
+      "username": "admin_user",
+      "enabled": true,
+      "email": "admin@enterprise.local",
+      "firstName": "Admin",
+      "lastName": "User",
+      "credentials": [{ "type": "password", "value": "admin_secure_pass", "temporary": false }],
+      "realmRoles": ["Admin"],
+      "requiredActions": ["CONFIGURE_TOTP"]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "zt-gateway",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "zt-gateway-secret",
+      "redirectUris": ["http://localhost:8000/*"],
+      "webOrigins": ["http://localhost:8000"],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "protocol": "openid-connect",
+      "protocolMappers": [
+        {
+          "name": "role-mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "config": {
+            "claim.name": "role",
+            "jsonType.label": "String",
+            "access.token.claim": "true",
+            "id.token.claim": "true",
+            "multivalued": "false",
+            "usermodel.realmRoleMapping.rolePrefix": ""
+          }
+        }
+      ]
+    }
+  ],
+  "authenticationFlows": [],
+  "requiredActions": [
+    {
+      "alias": "CONFIGURE_TOTP",
+      "name": "Configure OTP",
+      "providerId": "CONFIGURE_TOTP",
+      "enabled": true,
+      "defaultAction": true,
+      "priority": 10
+    }
+  ],
+  "otpPolicyType": "totp",
+  "otpPolicyAlgorithm": "HmacSHA1",
+  "otpPolicyInitialCounter": 0,
+  "otpPolicyDigits": 6,
+  "otpPolicyLookAheadWindow": 1,
+  "otpPolicyPeriod": 30
+}

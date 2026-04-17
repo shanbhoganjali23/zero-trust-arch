@@ -1,32 +1,40 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  loki:
-    image: grafana/loki:2.9.0
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-zt
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
-      - "3100:3100"
-    networks: [otel-net]
-
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.149.0
-    container_name: otel-collector
-    command: ["--config=/etc/otelcol/config.yaml"]
+      - "8080:8080"
     volumes:
-      - ./otel-collector-config.yaml:/etc/otelcol/config.yaml
-    ports:
-      - "4318:4318"
-    depends_on:
-      - loki
-    networks: [otel-net]
+      - ./enterprise-zt-realm.json:/opt/keycloak/data/import/realm.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/8080'"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
 
-  grafana:
-    image: grafana/grafana:latest
+  mfa-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.mfa
+    container_name: mfa-service
+    environment:
+      MFA_PORT: "5010"
+      MFA_ADMIN_TOKEN: "change-me"
+      MFA_SECRET_DIR: "/app/mfa_secrets"
     ports:
-      - "3000:3000"
+      - "5010:5010"
+    volumes:
+      - mfa-secrets:/app/mfa_secrets
     depends_on:
-      - loki
-    networks: [otel-net]
+      keycloak:
+        condition: service_started
 
-networks:
-  otel-net:
-    driver: bridge
+volumes:
+  mfa-secrets:
