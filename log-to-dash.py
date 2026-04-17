@@ -35,7 +35,10 @@ def security_event_logging(username, role, resource, ip, mfaResult, serviceAcces
             'result': serviceAccessResult,
             'reason': reasonForResult,
         }
-        logging.info(access_entry)
+        if access_entry['role'] == access_entry['resource']:
+            logging.info(access_entry)
+        else:
+            logging.warning(access_entry)
         logging.info('\n')
 
 if __name__ == '__main__':
