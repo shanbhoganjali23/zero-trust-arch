@@ -50,6 +50,8 @@ def evaluate():
     print(f"[Policy Engine] Request received: user={user}, role={role}, resource={resource}, action={action}, mfa={mfa}")
 
     result = evaluate_policy(role, resource, mfa)
+    with open("policy.log", "a") as f:
+        f.write(f"{datetime.now()} ROLE={role} RESOURCE={resource} DECISION={result['decision']}\n")
 
     print(f"[Policy Engine] Decision: {result['decision']} | Reason: {result['reason']}")
 
