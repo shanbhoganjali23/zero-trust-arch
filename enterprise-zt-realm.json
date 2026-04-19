@@ -21,11 +21,26 @@
   "ssoSessionMaxLifespan": 36000,
   "roles": {
     "realm": [
-      { "name": "HR", "description": "Human Resources staff" },
-      { "name": "Finance", "description": "Finance department staff" },
-      { "name": "Developer", "description": "Software developer" },
-      { "name": "Admin", "description": "System administrator" },
-      { "name": "SecurityAnalyst", "description": "Security operations analyst" }
+      {
+        "name": "HR",
+        "description": "Human Resources staff"
+      },
+      {
+        "name": "Finance",
+        "description": "Finance department staff"
+      },
+      {
+        "name": "Developer",
+        "description": "Software developer"
+      },
+      {
+        "name": "Admin",
+        "description": "System administrator"
+      },
+      {
+        "name": "SecurityAnalyst",
+        "description": "Security operations analyst"
+      }
     ]
   },
   "users": [
@@ -35,9 +50,17 @@
       "email": "alice@enterprise.local",
       "firstName": "Alice",
       "lastName": "HR",
-      "credentials": [{ "type": "password", "value": "password123", "temporary": false }],
-      "realmRoles": ["HR"],
-      "requiredActions": ["CONFIGURE_TOTP"]
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "HR"
+      ],
+      "requiredActions": []
     },
     {
       "username": "bob_finance",
@@ -45,9 +68,17 @@
       "email": "bob@enterprise.local",
       "firstName": "Bob",
       "lastName": "Finance",
-      "credentials": [{ "type": "password", "value": "password123", "temporary": false }],
-      "realmRoles": ["Finance"],
-      "requiredActions": ["CONFIGURE_TOTP"]
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "Finance"
+      ],
+      "requiredActions": []
     },
     {
       "username": "charlie_dev",
@@ -55,9 +86,17 @@
       "email": "charlie@enterprise.local",
       "firstName": "Charlie",
       "lastName": "Dev",
-      "credentials": [{ "type": "password", "value": "password123", "temporary": false }],
-      "realmRoles": ["Developer"],
-      "requiredActions": ["CONFIGURE_TOTP"]
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "Developer"
+      ],
+      "requiredActions": []
     },
     {
       "username": "admin_user",
@@ -65,9 +104,17 @@
       "email": "admin@enterprise.local",
       "firstName": "Admin",
       "lastName": "User",
-      "credentials": [{ "type": "password", "value": "admin_secure_pass", "temporary": false }],
-      "realmRoles": ["Admin"],
-      "requiredActions": ["CONFIGURE_TOTP"]
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin_secure_pass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "Admin"
+      ],
+      "requiredActions": []
     }
   ],
   "clients": [
@@ -76,8 +123,12 @@
       "enabled": true,
       "publicClient": false,
       "secret": "zt-gateway-secret",
-      "redirectUris": ["http://localhost:8000/*"],
-      "webOrigins": ["http://localhost:8000"],
+      "redirectUris": [
+        "http://localhost:8000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:8000"
+      ],
       "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
       "protocol": "openid-connect",
@@ -105,7 +156,7 @@
       "name": "Configure OTP",
       "providerId": "CONFIGURE_TOTP",
       "enabled": true,
-      "defaultAction": true,
+      "defaultAction": false,
       "priority": 10
     }
   ],

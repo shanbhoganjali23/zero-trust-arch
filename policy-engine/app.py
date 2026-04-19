@@ -1,26 +1,27 @@
 from flask import Flask, request, jsonify
+from datetime import datetime
+from pathlib import Path
 
 app = Flask(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_FILE = BASE_DIR / "security_events_tracking.txt"
+
 
 def evaluate_policy(role: str, resource: str, mfa: bool) -> dict:
-    # Unknown or empty resource
     if not resource or resource == "/":
         return {"decision": "deny", "reason": "no resource specified"}
 
-    # Admin can access everything, but require MFA
     if role == "Admin":
         if not mfa:
             return {"decision": "deny", "reason": "admin access requires MFA"}
         return {"decision": "allow", "reason": "admin access allowed"}
 
-    # HR rules
     if role == "HR":
         if resource.startswith("/hr-app"):
             return {"decision": "allow", "reason": "HR allowed for HR resource"}
         return {"decision": "deny", "reason": "HR cannot access this resource"}
 
-    # Finance rules
     if role == "Finance":
         if not mfa and resource.startswith("/finance-app"):
             return {"decision": "deny", "reason": "finance access requires MFA"}
@@ -28,7 +29,6 @@ def evaluate_policy(role: str, resource: str, mfa: bool) -> dict:
             return {"decision": "allow", "reason": "Finance allowed for finance resource"}
         return {"decision": "deny", "reason": "Finance cannot access this resource"}
 
-    # Developer rules
     if role == "Developer":
         if resource.startswith("/dev-app"):
             return {"decision": "allow", "reason": "Developer allowed for dev resource"}
@@ -47,10 +47,12 @@ def evaluate():
     action = data.get("action", "GET")
     mfa = data.get("mfa", False)
 
-    print(f"[Policy Engine] Request received: user={user}, role={role}, resource={resource}, action={action}, mfa={mfa}")
+    print(f"[Policy Engine] Request: user={user}, role={role}, resource={resource}, action={action}, mfa={mfa}")
 
     result = evaluate_policy(role, resource, mfa)
-    with open("policy.log", "a") as f:
+
+    # Write to shared log file at project root
+    with open(LOG_FILE, "a") as f:
         f.write(f"{datetime.now()} ROLE={role} RESOURCE={resource} DECISION={result['decision']}\n")
 
     print(f"[Policy Engine] Decision: {result['decision']} | Reason: {result['reason']}")

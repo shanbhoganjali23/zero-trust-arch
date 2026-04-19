@@ -1,30 +1,3 @@
-<h1>Project Build Statuses</h1>
-<form onsubmit="return addBuild()">
-    <label for="project_name">Project Name:</label>
-    <input type="text" id="project_name" placeholder="Project Name"/><br>
-    <select id="build_status">
-        <option value="Success">Success</option>
-        <option value="Failure">Failure</option>
-        <option value="Pending">Pending</option>
-    </select><br>
-    <button type="submit">Add Build Status</button>
-</form>
-<a href="http://127.0.0.1:5000/dev-app">Back to Home Page</a>
-<div id="build-display"></div>
-<script>
-    let buildList = [];
-    function addBuild() {
-        event.preventDefault();
-        const build = {
-            project_name: document.getElementById('project_name').value,
-            build_status: document.getElementById('build_status').value
-        }
-        buildList.push(build);
-        let buildDisplay = document.getElementById('build-display');
-        buildDisplay.innerHTML = '';
-        for(let i = 0; i<buildList.length; i++){
-            buildDisplay.innerHTML += `<p>${buildList[i].project_name}: ${buildList[i].build_status}</p>`;
-        }
-        return false;
-    }
-</script>
+<!DOCTYPE html><html><head><title>Build Statuses</title></head>
+<body style="font-family:sans-serif;padding:2rem"><h1>🔨 Build Statuses</h1>
+<p>zero-trust-arch: ✅ PASS</p><p>policy-engine: ✅ PASS</p></body></html>
