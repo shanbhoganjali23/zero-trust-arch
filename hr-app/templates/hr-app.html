@@ -14,7 +14,7 @@
     .welcome h2 { color: #1a1a2e; margin-bottom: 0.3rem; }
     .welcome p { color: #666; font-size: 0.95rem; }
     .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
-    .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; display: block; }
+    .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; display: block; cursor: pointer; }
     .card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
     .card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
     .card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
@@ -22,6 +22,15 @@
     .stat { font-size: 1.8rem; font-weight: bold; color: #3949ab; }
     .footer { text-align: center; color: #aaa; font-size: 0.8rem; margin-top: 2rem; padding-bottom: 2rem; }
   </style>
+  <script>
+    function navigate(path) {
+      const params = new URLSearchParams(window.location.search);
+      const user = params.get('user') || '';
+      const role = params.get('role') || '';
+      const mfa = params.get('mfa') || 'true';
+      window.location.href = 'http://localhost:5000' + path + '?user=' + user + '&role=' + role + '&mfa=' + mfa;
+    }
+  </script>
 </head>
 <body>
   <div class="topbar">
@@ -34,18 +43,18 @@
       <p>You are securely logged in via Zero Trust Gateway. All access is monitored and logged.</p>
     </div>
     <div class="cards">
-      <a href="/hr-app/employees" class="card">
+      <div class="card" onclick="navigate('/hr-app/employees')">
         <div class="icon">👥</div>
         <div class="stat">24</div>
         <h3>Employee Records</h3>
         <p>View and manage all employee information, departments, and roles.</p>
-      </a>
-      <a href="/hr-app/leave" class="card">
+      </div>
+      <div class="card" onclick="navigate('/hr-app/leave')">
         <div class="icon">🌴</div>
         <div class="stat">5</div>
         <h3>Leave Requests</h3>
         <p>Review pending leave requests and manage approvals.</p>
-      </a>
+      </div>
     </div>
   </div>
   <div class="footer">Zero Trust Architecture — Enterprise Network Security Project</div>

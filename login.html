@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enterprise Zero Trust — Login</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container { width: 100%; max-width: 440px; padding: 1rem; }
+    .logo { text-align: center; margin-bottom: 2rem; }
+    .logo .icon { font-size: 3rem; }
+    .logo h1 { color: white; font-size: 1.4rem; margin-top: 0.5rem; }
+    .logo p { color: #8892b0; font-size: 0.85rem; margin-top: 0.3rem; }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .step { display: none; }
+    .step.active { display: block; }
+    .steps-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 0.5rem;
+    }
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700;
+      background: #e0e0e0; color: #999;
+      transition: all 0.3s;
+    }
+    .step-dot.active { background: #1a1a2e; color: white; }
+    .step-dot.done { background: #4caf50; color: white; }
+    .step-line { flex: 1; height: 2px; background: #e0e0e0; max-width: 60px; }
+    .step-line.done { background: #4caf50; }
+    .card h2 { font-size: 1.3rem; color: #1a1a2e; margin-bottom: 0.3rem; }
+    .card .subtitle { color: #666; font-size: 0.88rem; margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: #333; margin-bottom: 0.4rem; }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #1a1a2e;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #3949ab; }
+    .btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: #1a1a2e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    .btn:hover { background: #3949ab; }
+    .btn:disabled { background: #aaa; cursor: not-allowed; }
+    .btn-outline {
+      width: 100%;
+      padding: 0.85rem;
+      background: white;
+      color: #1a1a2e;
+      border: 1.5px solid #1a1a2e;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: #f5f5f5; }
+    .error {
+      background: #fce4ec; border: 1px solid #ffcdd2;
+      border-radius: 8px; padding: 0.8rem 1rem;
+      color: #c62828; font-size: 0.88rem;
+      margin-bottom: 1rem; display: none;
+    }
+    .loading {
+      background: #e8eaf6; border: 1px solid #c5cae9;
+      border-radius: 8px; padding: 0.8rem 1rem;
+      color: #3949ab; font-size: 0.88rem;
+      margin-bottom: 1rem; display: none;
+    }
+    .divider { border: none; border-top: 1px solid #f0f0f0; margin: 1.5rem 0; }
+    .hint { font-size: 0.8rem; color: #999; text-align: center; line-height: 1.8; }
+    .hint strong { color: #555; }
+    .qr-section {
+      text-align: center;
+      background: #f5f7ff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .qr-section img {
+      width: 180px; height: 180px;
+      border-radius: 8px;
+      border: 3px solid white;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    .qr-section p { font-size: 0.82rem; color: #666; margin-top: 0.8rem; }
+    .secret-box {
+      background: #1a1a2e;
+      color: #4caf50;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      letter-spacing: 2px;
+    }
+    .otp-input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 8px;
+      color: #1a1a2e;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .otp-input:focus { border-color: #3949ab; }
+    .user-badge {
+      background: #e8eaf6;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      color: #3949ab;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .instructions {
+      background: #f5f7ff;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .instructions p { font-size: 0.83rem; color: #555; margin-bottom: 0.4rem; }
+    .instructions p:last-child { margin-bottom: 0; }
+    .footer { text-align: center; color: #8892b0; font-size: 0.75rem; margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <div class="icon">🏢</div>
+      <h1>Enterprise Zero Trust</h1>
+      <p>Secure Network Access Portal</p>
+    </div>
+
+    <div class="card">
+      <div class="steps-bar">
+        <div class="step-dot active" id="dot1">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="dot2">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="dot3">✓</div>
+      </div>
+
+      <!-- STEP 1: Login -->
+      <div class="step active" id="step1">
+        <h2>Sign In</h2>
+        <p class="subtitle">Step 1 of 2 — Enter your credentials</p>
+        <div class="error" id="loginError"></div>
+        <div class="loading" id="loginLoading">🔐 Verifying with Keycloak...</div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="e.g. alice_hr" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
+        </div>
+        <button class="btn" id="loginBtn" onclick="doLogin()">Continue →</button>
+        <hr class="divider">
+        <div class="hint">
+          <strong>Test accounts:</strong><br>
+          alice_hr / password123 → HR Portal<br>
+          bob_finance / password123 → Finance Portal<br>
+          charlie_dev / password123 → Dev Portal<br>
+          admin_user / admin_secure_pass → HR Portal
+        </div>
+      </div>
+
+      <!-- STEP 2: MFA -->
+      <div class="step" id="step2">
+        <h2>Two-Factor Authentication</h2>
+        <p class="subtitle">Step 2 of 2 — Verify your identity</p>
+        <div class="error" id="mfaError"></div>
+        <div class="loading" id="mfaLoading">🔄 Verifying OTP code...</div>
+        <div class="user-badge" id="userBadge">👤 —</div>
+        <div class="qr-section" id="qrSection">
+          <p>⏳ Loading QR code...</p>
+        </div>
+        <div class="instructions">
+          <p>1️⃣ Open <strong>Google Authenticator</strong> on your phone</p>
+          <p>2️⃣ Tap <strong>+</strong> → <strong>Scan a QR code</strong></p>
+          <p>3️⃣ Scan the QR code above</p>
+          <p>4️⃣ Enter the <strong>6-digit code</strong> below</p>
+        </div>
+        <div class="form-group">
+          <label for="otpCode">6-Digit Code from Authenticator App</label>
+          <input type="text" class="otp-input" id="otpCode" placeholder="000000" maxlength="6" inputmode="numeric" />
+        </div>
+        <button class="btn" id="verifyBtn" onclick="verifyMFA()">Verify & Access Portal →</button>
+        <button class="btn-outline" onclick="goBack()">← Back to Login</button>
+      </div>
+
+      <!-- STEP 3: Success -->
+      <div class="step" id="step3">
+        <div style="text-align:center; padding: 1rem 0;">
+          <div style="font-size:4rem; margin-bottom:1rem;">✅</div>
+          <h2 style="color:#2e7d32; margin-bottom:0.5rem;">Access Granted!</h2>
+          <p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">Identity verified. Redirecting to your portal...</p>
+          <div style="background:#e8f5e9; border-radius:8px; padding:1rem; font-size:0.85rem; color:#2e7d32;">
+            🔒 Zero Trust verification complete<br>
+            <span id="successInfo" style="color:#555; font-size:0.82rem;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">🔒 All access is verified, monitored and logged via Zero Trust Gateway</div>
+  </div>
+
+  <script>
+    const GATEWAY = "http://localhost:5000";
+
+    let currentFlowId = "";
+    let currentUser = "";
+    let currentRole = "";
+    let redirectPath = "";
+
+    document.getElementById("password").addEventListener("keydown", e => {
+      if (e.key === "Enter") doLogin();
+    });
+    document.getElementById("otpCode").addEventListener("keydown", e => {
+      if (e.key === "Enter") verifyMFA();
+    });
+
+    function setStepIndicator(step) {
+      for (let i = 1; i <= 3; i++) document.getElementById("dot" + i).className = "step-dot";
+      document.getElementById("line1").className = "step-line";
+      document.getElementById("line2").className = "step-line";
+      if (step >= 1) document.getElementById("dot1").className = "step-dot " + (step > 1 ? "done" : "active");
+      if (step >= 2) {
+        document.getElementById("line1").className = "step-line done";
+        document.getElementById("dot2").className = "step-dot " + (step > 2 ? "done" : "active");
+      }
+      if (step >= 3) {
+        document.getElementById("line2").className = "step-line done";
+        document.getElementById("dot3").className = "step-dot done";
+      }
+    }
+
+    function showStep(n) {
+      document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+      document.getElementById("step" + n).classList.add("active");
+      setStepIndicator(n);
+    }
+
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      el.textContent = "❌ " + msg;
+      el.style.display = "block";
+    }
+
+    function hideAll(prefix) {
+      ["Error", "Loading"].forEach(s => {
+        const el = document.getElementById(prefix + s);
+        if (el) el.style.display = "none";
+      });
+    }
+
+    // STEP 1: Login — calls gateway /login
+    async function doLogin() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        showError("loginError", "Please enter both username and password.");
+        return;
+      }
+
+      hideAll("login");
+      document.getElementById("loginLoading").style.display = "block";
+      document.getElementById("loginBtn").disabled = true;
+
+      try {
+        const resp = await fetch(`${GATEWAY}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await resp.json();
+        document.getElementById("loginLoading").style.display = "none";
+        document.getElementById("loginBtn").disabled = false;
+
+        if (!resp.ok) {
+          showError("loginError", data.error || "Login failed. Please try again.");
+          return;
+        }
+
+        // Save flow_id for subsequent MFA steps
+        currentFlowId = data.flow_id;
+        currentUser = data.username;
+        currentRole = data.role;
+
+        document.getElementById("userBadge").textContent =
+          `👤 ${data.username}   |   🏷️ Role: ${data.role}`;
+
+        // Call gateway /mfa/setup with flow_id
+        await setupMFA(data.flow_id);
+        showStep(2);
+
+      } catch (err) {
+        document.getElementById("loginLoading").style.display = "none";
+        document.getElementById("loginBtn").disabled = false;
+        showError("loginError", "Cannot reach the gateway. Make sure all services are running.");
+      }
+    }
+
+    // Calls gateway /mfa/setup (which internally calls mfa_service on port 5010)
+    async function setupMFA(flowId) {
+      const qrSection = document.getElementById("qrSection");
+      qrSection.innerHTML = "<p>⏳ Generating QR code...</p>";
+
+      try {
+        const resp = await fetch(`${GATEWAY}/mfa/setup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ flow_id: flowId })
+        });
+
+        const data = await resp.json();
+
+        if (data.qr_code) {
+          const qrSrc = data.qr_code.startsWith("data:") ? data.qr_code : `data:image/png;base64,${data.qr_code}`;
+          qrSection.innerHTML = `
+            <img src="${qrSrc}" alt="QR Code" />
+            <p>Scan this with Google Authenticator</p>
+            <p style="margin-top:0.5rem; font-size:0.75rem; color:#999;">Or enter manually:</p>
+            <div class="secret-box" style="word-break:break-all; text-align:center; letter-spacing:3px;">${data.secret}</div>          `;
+        } else {
+          qrSection.innerHTML = "<p style='color:red'>Failed to load QR code. Check MFA service.</p>";
+        }
+      } catch (err) {
+        qrSection.innerHTML = "<p style='color:red'>Cannot reach MFA service. Make sure mfa_service.py is running.</p>";
+      }
+    }
+
+    // STEP 2: MFA — calls gateway /mfa/complete with flow_id + otp
+    async function verifyMFA() {
+      const otp = document.getElementById("otpCode").value.trim();
+
+      if (!otp || otp.length !== 6) {
+        showError("mfaError", "Please enter the 6-digit code from your authenticator app.");
+        return;
+      }
+
+      hideAll("mfa");
+      document.getElementById("mfaLoading").style.display = "block";
+      document.getElementById("verifyBtn").disabled = true;
+
+      try {
+        const resp = await fetch(`${GATEWAY}/mfa/complete`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",   // needed for session cookie
+          body: JSON.stringify({ flow_id: currentFlowId, otp })
+        });
+
+        const data = await resp.json();
+        document.getElementById("mfaLoading").style.display = "none";
+        document.getElementById("verifyBtn").disabled = false;
+
+        if (data.verified) {
+          redirectPath = data.redirect;
+          document.getElementById("successInfo").textContent =
+            `User: ${currentUser}  |  Role: ${currentRole}`;
+          showStep(3);
+
+          // Redirect to the correct portal after 2 seconds
+          setTimeout(() => {
+            window.location.href = `${GATEWAY}${redirectPath}`;
+          }, 2000);
+        } else {
+          showError("mfaError", data.error || "Invalid OTP. Please try again.");
+          document.getElementById("otpCode").value = "";
+          document.getElementById("otpCode").focus();
+        }
+
+      } catch (err) {
+        document.getElementById("mfaLoading").style.display = "none";
+        document.getElementById("verifyBtn").disabled = false;
+        showError("mfaError", "Cannot reach the gateway. Make sure all services are running.");
+      }
+    }
+
+    function goBack() {
+      document.getElementById("otpCode").value = "";
+      document.getElementById("password").value = "";
+      hideAll("mfa");
+      hideAll("login");
+      document.getElementById("loginBtn").disabled = false;
+      currentFlowId = "";
+      showStep(1);
+    }
+  </script>
+</body>
+</html>
