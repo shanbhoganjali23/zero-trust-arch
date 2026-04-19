@@ -1,5 +1,54 @@
-<!DOCTYPE html><html><head><title>Employees</title></head>
-<body style="font-family:sans-serif;padding:2rem"><h1>👥 Employee Records</h1>
-<table border="1" cellpadding="8"><tr><th>Name</th><th>Role</th><th>Dept</th></tr>
-<tr><td>Alice HR</td><td>HR Manager</td><td>Human Resources</td></tr>
-<tr><td>Bob Finance</td><td>Analyst</td><td>Finance</td></tr></table></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Records — HR Portal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f4ff; color: #1a1a2e; }
+    .topbar { background: #1a1a2e; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .topbar h1 { font-size: 1.2rem; }
+    .badge { background: #4caf50; color: white; padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.8rem; }
+    .container { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: #666; }
+    .breadcrumb a { color: #3949ab; text-decoration: none; }
+    .panel { background: white; border-radius: 12px; padding: 1.5rem 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .panel h2 { margin-bottom: 1.2rem; font-size: 1.2rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th { background: #f5f7ff; padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: #3949ab; border-bottom: 2px solid #e0e4f0; }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid #f0f0f0; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafbff; }
+    .status { padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+    .active { background: #e8f5e9; color: #2e7d32; }
+    .leave { background: #fff8e1; color: #f57f17; }
+    .remote { background: #e3f2fd; color: #1565c0; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>🏢 Enterprise Zero Trust — HR Portal</h1>
+    <span class="badge">🔒 Authenticated</span>
+  </div>
+  <div class="container">
+    <div class="breadcrumb"><a href="/hr-app">HR Portal</a> › Employee Records</div>
+    <div class="panel">
+      <h2>👥 Employee Records</h2>
+      <table>
+        <tr>
+          <th>Name</th><th>Employee ID</th><th>Department</th><th>Role</th><th>Email</th><th>Status</th>
+        </tr>
+        <tr><td>Alice HR</td><td>EMP-001</td><td>Human Resources</td><td>HR Manager</td><td>alice@enterprise.local</td><td><span class="status active">Active</span></td></tr>
+        <tr><td>Bob Finance</td><td>EMP-002</td><td>Finance</td><td>Financial Analyst</td><td>bob@enterprise.local</td><td><span class="status active">Active</span></td></tr>
+        <tr><td>Charlie Dev</td><td>EMP-003</td><td>Engineering</td><td>Software Developer</td><td>charlie@enterprise.local</td><td><span class="status remote">Remote</span></td></tr>
+        <tr><td>Diana Chen</td><td>EMP-004</td><td>Engineering</td><td>Senior Developer</td><td>diana@enterprise.local</td><td><span class="status active">Active</span></td></tr>
+        <tr><td>Ethan Singh</td><td>EMP-005</td><td>Finance</td><td>Finance Manager</td><td>ethan@enterprise.local</td><td><span class="status leave">On Leave</span></td></tr>
+        <tr><td>Fiona Patel</td><td>EMP-006</td><td>Human Resources</td><td>HR Coordinator</td><td>fiona@enterprise.local</td><td><span class="status active">Active</span></td></tr>
+        <tr><td>George Kim</td><td>EMP-007</td><td>Engineering</td><td>DevOps Engineer</td><td>george@enterprise.local</td><td><span class="status active">Active</span></td></tr>
+        <tr><td>Hannah Lee</td><td>EMP-008</td><td>Security</td><td>Security Analyst</td><td>hannah@enterprise.local</td><td><span class="status remote">Remote</span></td></tr>
+        <tr><td>Admin User</td><td>EMP-009</td><td>IT Administration</td><td>System Administrator</td><td>admin@enterprise.local</td><td><span class="status active">Active</span></td></tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

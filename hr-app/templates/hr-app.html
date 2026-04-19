@@ -1,5 +1,53 @@
-<!DOCTYPE html><html><head><title>HR Portal</title></head>
-<body style="font-family:sans-serif;padding:2rem;background:#f0f4ff">
-<h1>🏢 HR Portal</h1><p>Welcome to the HR Portal.</p>
-<ul><li><a href="/hr-app/employees">👥 Employees</a></li><li><a href="/hr-app/leave">🌴 Leave Requests</a></li></ul>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HR Portal — Enterprise ZT</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f4ff; color: #1a1a2e; }
+    .topbar { background: #1a1a2e; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .topbar h1 { font-size: 1.2rem; }
+    .badge { background: #4caf50; color: white; padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.8rem; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .welcome { background: white; border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .welcome h2 { color: #1a1a2e; margin-bottom: 0.3rem; }
+    .welcome p { color: #666; font-size: 0.95rem; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
+    .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; display: block; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+    .card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .card p { color: #666; font-size: 0.88rem; }
+    .stat { font-size: 1.8rem; font-weight: bold; color: #3949ab; }
+    .footer { text-align: center; color: #aaa; font-size: 0.8rem; margin-top: 2rem; padding-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>🏢 Enterprise Zero Trust — HR Portal</h1>
+    <span class="badge">🔒 Authenticated</span>
+  </div>
+  <div class="container">
+    <div class="welcome">
+      <h2>Welcome, HR Team</h2>
+      <p>You are securely logged in via Zero Trust Gateway. All access is monitored and logged.</p>
+    </div>
+    <div class="cards">
+      <a href="/hr-app/employees" class="card">
+        <div class="icon">👥</div>
+        <div class="stat">24</div>
+        <h3>Employee Records</h3>
+        <p>View and manage all employee information, departments, and roles.</p>
+      </a>
+      <a href="/hr-app/leave" class="card">
+        <div class="icon">🌴</div>
+        <div class="stat">5</div>
+        <h3>Leave Requests</h3>
+        <p>Review pending leave requests and manage approvals.</p>
+      </a>
+    </div>
+  </div>
+  <div class="footer">Zero Trust Architecture — Enterprise Network Security Project</div>
+</body>
+</html>
