@@ -63,3 +63,163 @@
 2026-04-19T10:48:08.985378 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app
 2026-04-19 10:48:16.493186 ROLE=HR RESOURCE=/finance-app DECISION=deny
 2026-04-19T10:48:16.494203 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app REASON=HR cannot access this resource
+2026-04-19T15:23:56.312245 EVENT=LOGIN_FAILED USER=alice_hr ROLE=unknown RESOURCE=/login IP=127.0.0.1 REASON=invalid credentials (attempt 1/3)
+2026-04-19T15:23:59.425035 EVENT=LOGIN_FAILED USER=alice_hr ROLE=unknown RESOURCE=/login IP=127.0.0.1 REASON=invalid credentials (attempt 2/3)
+2026-04-19T15:24:02.165535 EVENT=LOGIN_FAILED USER=alice_hr ROLE=unknown RESOURCE=/login IP=127.0.0.1 REASON=invalid credentials (attempt 3/3)
+2026-04-19T15:24:02.165948 EVENT=INCIDENT_LOCKOUT USER=alice_hr ROLE=unknown RESOURCE=/login IP=127.0.0.1 REASON=IP locked for 300s after 3 failed attempts
+2026-04-19T15:24:07.407963 EVENT=LOCKOUT_BLOCKED USER=unknown ROLE=unknown RESOURCE=/login IP=127.0.0.1 REASON=IP is locked due to repeated failures
+2026-04-19T15:24:17.634075 EVENT=POLICY_DECISION USER=charlie_dev ROLE=Developer RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Developer cannot access this resource
+2026-04-19T15:24:17.638442 EVENT=ACCESS_DENIED USER=charlie_dev ROLE=Developer RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown REASON=Developer cannot access this resource
+2026-04-19T15:24:21.636336 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/hr-app/employees IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:24:27.082518 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T15:24:27.085050 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T15:24:35.816269 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T15:24:35.818688 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T15:25:21.210509 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/hr-app IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:32:34.623905 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/hr-app IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:32:34.934538 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/favicon.ico IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:33:31.640746 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T15:33:31.644701 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T15:33:31.675657 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/favicon.ico IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:34:44.528188 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T15:34:44.530130 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T15:34:44.550230 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/favicon.ico IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:35:38.080513 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T15:35:38.082323 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T15:35:38.101645 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/favicon.ico IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:35:45.192077 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/hr-app IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:35:45.207381 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/favicon.ico IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T15:43:01.281257 EVENT=LOGIN_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/login IP=127.0.0.1
+2026-04-19T16:25:52.226364 EVENT=LOGIN_FAILED USER=alice_hrr ROLE=unknown RESOURCE=/login IP=127.0.0.1 REASON=invalid credentials (attempt 1/3)
+2026-04-19T16:25:55.416203 EVENT=LOGIN_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/login IP=127.0.0.1
+2026-04-19T16:35:54.017189 EVENT=LOGIN_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/login IP=127.0.0.1
+2026-04-19T17:06:34.529391 EVENT=LOGIN_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/login IP=127.0.0.1
+2026-04-19T17:06:59.282158 EVENT=MFA_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1
+2026-04-19T17:07:01.318152 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/hr-app IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T17:07:01.687563 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/favicon.ico IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T17:09:41.393049 EVENT=LOGIN_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/login IP=127.0.0.1
+2026-04-19T17:09:50.019977 EVENT=MFA_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1
+2026-04-19T17:09:52.074106 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T17:09:52.078825 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T17:09:52.128245 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T17:09:52.128951 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T17:10:21.288894 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T17:10:21.292549 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T17:10:21.328962 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T17:10:21.330120 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T17:10:27.610730 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=device not trusted — finance and admin require a registered device
+2026-04-19T17:10:27.613631 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=device not trusted — finance and admin require a registered device
+2026-04-19T17:10:27.627600 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T17:10:27.629058 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T17:11:57.094646 EVENT=LOGIN_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/login IP=127.0.0.1
+2026-04-19T17:12:09.830942 EVENT=MFA_FAILED USER=bob_finance ROLE=Finance RESOURCE=/mfa IP=127.0.0.1 REASON=invalid or expired OTP
+2026-04-19T17:12:24.513451 EVENT=MFA_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1
+2026-04-19T17:12:26.556104 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=device not trusted — finance and admin require a registered device
+2026-04-19T17:12:26.559299 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=device not trusted — finance and admin require a registered device
+2026-04-19T17:12:26.580567 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T17:12:26.582873 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T17:12:43.305214 EVENT=LOGIN_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/login IP=127.0.0.1
+2026-04-19T17:12:49.882247 EVENT=MFA_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1
+2026-04-19T17:12:51.913229 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=device not trusted — finance and admin require a registered device
+2026-04-19T17:12:51.915154 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=device not trusted — finance and admin require a registered device
+2026-04-19T17:12:51.937002 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T17:12:51.938080 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T19:33:46.053517 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:33:46.057947 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:33:46.079735 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:33:46.080378 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:33:47.084490 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:33:47.086658 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:33:47.103186 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:33:47.104542 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:33:47.765665 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:33:47.778629 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:33:48.624621 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T19:33:48.638556 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T19:33:48.674744 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:33:48.675823 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:33:49.428655 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T19:33:49.430701 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T19:33:49.455434 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:33:49.456565 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:33:58.493780 EVENT=LOGIN_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/login IP=127.0.0.1
+2026-04-19T19:34:11.888219 EVENT=LOGIN_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/login IP=127.0.0.1
+2026-04-19T19:34:16.094822 EVENT=MFA_FAILED USER=bob_finance ROLE=Finance RESOURCE=/mfa IP=127.0.0.1 REASON=invalid or expired OTP
+2026-04-19T19:34:36.148474 EVENT=MFA_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1
+2026-04-19T19:34:38.183765 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:34:38.186150 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:34:38.261420 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:34:38.263239 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:37:58.499066 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:37:58.501992 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:37:58.517746 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:37:58.518873 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:37:59.267619 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:37:59.269501 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:37:59.307441 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:37:59.309992 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:38:16.249950 EVENT=LOGIN_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/login IP=127.0.0.1
+2026-04-19T19:38:27.499007 EVENT=MFA_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1
+2026-04-19T19:38:29.592507 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:38:29.594584 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:38:29.661156 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:38:29.662802 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:38:53.343932 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:38:53.346229 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:39:06.083939 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:39:06.085530 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:39:06.154496 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T19:39:06.156784 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T19:39:12.950263 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=Finance allowed for finance resource
+2026-04-19T19:39:12.953089 EVENT=ACCESS_GRANTED USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T19:39:13.028362 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T19:39:13.028818 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T19:39:18.557952 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app/budgets IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=Finance allowed for finance resource
+2026-04-19T19:39:18.558858 EVENT=ACCESS_GRANTED USER=bob_finance ROLE=Finance RESOURCE=/finance-app/budgets IP=127.0.0.1 DEVICE=unknown
+2026-04-19T19:39:18.580635 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T19:39:18.581715 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T19:39:20.911338 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T19:39:20.912632 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T19:39:21.982857 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app/invoices IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=Finance allowed for finance resource
+2026-04-19T19:39:21.984746 EVENT=ACCESS_GRANTED USER=bob_finance ROLE=Finance RESOURCE=/finance-app/invoices IP=127.0.0.1 DEVICE=unknown
+2026-04-19T19:39:22.019560 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T19:39:22.021141 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T19:39:23.423099 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T19:39:23.426317 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T20:08:46.026675 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/finance-app IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T20:08:46.718986 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/finance-app IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T20:08:46.785150 EVENT=ACCESS_DENIED USER=unknown ROLE=unknown RESOURCE=/favicon.ico IP=127.0.0.1 REASON=missing or invalid token/session
+2026-04-19T20:11:18.325831 EVENT=LOGIN_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/login IP=127.0.0.1
+2026-04-19T20:11:30.058312 EVENT=MFA_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1
+2026-04-19T20:11:32.109307 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=Finance allowed for finance resource
+2026-04-19T20:11:32.111883 EVENT=ACCESS_GRANTED USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T20:11:32.152838 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T20:11:32.154477 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T20:11:39.764090 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app/invoices IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=Finance allowed for finance resource
+2026-04-19T20:11:39.766221 EVENT=ACCESS_GRANTED USER=bob_finance ROLE=Finance RESOURCE=/finance-app/invoices IP=127.0.0.1 DEVICE=unknown
+2026-04-19T20:11:39.787681 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T20:11:39.789345 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T20:14:55.173814 EVENT=LOGIN_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/login IP=127.0.0.1
+2026-04-19T20:15:09.962727 EVENT=MFA_SUCCESS USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1
+2026-04-19T20:15:11.997164 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=HR allowed for HR resource
+2026-04-19T20:15:11.999655 EVENT=ACCESS_GRANTED USER=alice_hr ROLE=HR RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T20:15:12.045783 EVENT=POLICY_DECISION USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=HR cannot access this resource
+2026-04-19T20:15:12.046438 EVENT=ACCESS_DENIED USER=alice_hr ROLE=HR RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=HR cannot access this resource
+2026-04-19T20:15:15.103638 EVENT=LOGOUT USER=alice_hr ROLE=HR RESOURCE=- IP=127.0.0.1
+2026-04-19T20:23:03.093948 EVENT=LOGIN_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/login IP=127.0.0.1
+2026-04-19T20:23:13.652545 EVENT=MFA_SUCCESS USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1
+2026-04-19T20:23:15.684702 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=Finance allowed for finance resource
+2026-04-19T20:23:15.686849 EVENT=ACCESS_GRANTED USER=bob_finance ROLE=Finance RESOURCE=/finance-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T20:23:15.717979 EVENT=POLICY_DECISION USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Finance cannot access this resource
+2026-04-19T20:23:15.718924 EVENT=ACCESS_DENIED USER=bob_finance ROLE=Finance RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Finance cannot access this resource
+2026-04-19T20:23:18.975372 EVENT=LOGOUT USER=bob_finance ROLE=Finance RESOURCE=- IP=127.0.0.1
+2026-04-19T20:23:28.765036 EVENT=LOGIN_SUCCESS USER=charlie_dev ROLE=Developer RESOURCE=/login IP=127.0.0.1
+2026-04-19T20:23:44.291089 EVENT=MFA_SUCCESS USER=charlie_dev ROLE=Developer RESOURCE=/dev-app IP=127.0.0.1
+2026-04-19T20:23:46.321195 EVENT=POLICY_DECISION USER=charlie_dev ROLE=Developer RESOURCE=/dev-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=allow REASON=Developer allowed for dev resource
+2026-04-19T20:23:46.322830 EVENT=ACCESS_GRANTED USER=charlie_dev ROLE=Developer RESOURCE=/dev-app IP=127.0.0.1 DEVICE=unknown
+2026-04-19T20:23:46.400674 EVENT=POLICY_DECISION USER=charlie_dev ROLE=Developer RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Developer cannot access this resource
+2026-04-19T20:23:46.401446 EVENT=ACCESS_DENIED USER=charlie_dev ROLE=Developer RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Developer cannot access this resource
+2026-04-19T20:24:03.819878 EVENT=POLICY_DECISION USER=charlie_dev ROLE=Developer RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Developer cannot access this resource
+2026-04-19T20:24:03.820542 EVENT=ACCESS_DENIED USER=charlie_dev ROLE=Developer RESOURCE=/hr-app IP=127.0.0.1 DEVICE=unknown REASON=Developer cannot access this resource
+2026-04-19T20:24:03.832129 EVENT=POLICY_DECISION USER=charlie_dev ROLE=Developer RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown MFA=True DECISION=deny REASON=Developer cannot access this resource
+2026-04-19T20:24:03.833179 EVENT=ACCESS_DENIED USER=charlie_dev ROLE=Developer RESOURCE=/favicon.ico IP=127.0.0.1 DEVICE=unknown REASON=Developer cannot access this resource

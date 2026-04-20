@@ -1,6 +1,42 @@
 version: "3.9"
 
+# MICRO-SEGMENTATION: Three isolated Docker networks
+# - frontend-net: only gateway and login server are exposed here
+# - service-net: internal services, only reachable from gateway
+# - auth-net: Keycloak and MFA service, only reachable from gateway
+#
+# This means:
+#   - Users can ONLY reach the gateway (port 5000) and login server (port 5050)
+#   - HR/Finance/Dev apps are NOT directly reachable from outside
+#   - Keycloak is NOT directly reachable from outside (admin port 8080 still exposed for setup)
+#   - Services cannot talk to each other directly — only through gateway
+
+networks:
+  frontend-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+  service-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+  auth-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+
+volumes:
+  mfa-secrets:
+
 services:
+
+  # -----------------------------------------------------------------------
+  # IDENTITY PROVIDER — auth-net only
+  # Admin port 8080 still exposed for demo/setup purposes
+  # -----------------------------------------------------------------------
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak-zt
@@ -12,6 +48,8 @@ services:
       - "8080:8080"
     volumes:
       - ./enterprise-zt-realm.json:/opt/keycloak/data/import/realm.json:ro
+    networks:
+      - auth-net
     healthcheck:
       test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/8080'"]
       interval: 15s
@@ -19,6 +57,10 @@ services:
       retries: 10
       start_period: 60s
 
+  # -----------------------------------------------------------------------
+  # MFA SERVICE — auth-net only
+  # NOT exposed to host — only gateway can reach it
+  # -----------------------------------------------------------------------
   mfa-service:
     build:
       context: .
@@ -35,6 +77,3 @@ services:
     depends_on:
       keycloak:
         condition: service_started
-
-volumes:
-  mfa-secrets:
