@@ -3,7 +3,7 @@ from flask_cors import CORS
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify, Response, make_response, redirect
 import secrets
 import threading
 import requests
@@ -21,13 +21,14 @@ SERVICE_MAP = {
     "/hr-app": "http://127.0.0.1:5001",
     "/finance-app": "http://127.0.0.1:5002",
     "/dev-app": "http://127.0.0.1:5003",
+    "/admin-panel": "http://127.0.0.1:5004",
 }
 
 ROLE_ROUTES = {
     "HR": "/hr-app",
     "Finance": "/finance-app",
     "Developer": "/dev-app",
-    "Admin": "/hr-app",
+    "Admin": "/admin-panel",
     "SecurityAnalyst": "/hr-app",
 }
 
@@ -514,7 +515,7 @@ def mfa_complete():
         httponly=True,
         samesite="Lax",
         path="/"
-    )    
+    )  
     return response
 
 
@@ -673,8 +674,10 @@ def logout():
             ip=get_client_ip(request)
         )
 
-    response = redirect("http://localhost:5050") if request.method == "GET" \
-        else make_response(jsonify({"message": "logged out"}))
+    if request.method == "GET":
+        response = redirect("http://localhost:5050")
+    else:
+        response = make_response(jsonify({"message": "logged out"}))
 
     response.delete_cookie("zt_session", path="/")
     return response

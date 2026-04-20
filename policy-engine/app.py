@@ -7,61 +7,38 @@ app = Flask(__name__)
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_FILE = BASE_DIR / "security_events_tracking.txt"
 
-# Known trusted IP ranges (simulate corporate network)
 TRUSTED_IP_PREFIXES = ["127.", "10.", "172.", "192.168."]
-
-# Resources that require device trust
-DEVICE_TRUST_REQUIRED = ["/finance-app", "/admin-panel"]
-
-# Resources that require MFA
-MFA_REQUIRED_RESOURCES = ["/finance-app", "/admin-panel"]
-MFA_REQUIRED_ROLES = ["Admin", "Finance"]
 
 
 def is_trusted_ip(ip: str) -> bool:
-    """Check if IP is from a known trusted range."""
     if not ip:
         return False
     return any(ip.startswith(prefix) for prefix in TRUSTED_IP_PREFIXES)
-
-
-def is_trusted_device(device_id: str) -> bool:
-    """
-    Simulate device trust check.
-    In a real system this would check against an endpoint management database.
-    For the prototype, any non-empty device_id is considered registered.
-    """
-    return bool(device_id and device_id.strip() and device_id != "unknown")
 
 
 def evaluate_policy(role: str, resource: str, mfa: bool,
                     ip: str = "", device_id: str = "",
                     device_trust: str = "unknown") -> dict:
 
-    # Unknown or empty resource
     if not resource or resource == "/":
         return {"decision": "deny", "reason": "no resource specified"}
 
-    # IP check — deny if from untrusted network
     if not is_trusted_ip(ip):
         return {
             "decision": "deny",
             "reason": f"access denied from untrusted IP: {ip}"
         }
 
-    # Admin rules — require MFA, allow everything
     if role == "Admin":
         if not mfa:
             return {"decision": "deny", "reason": "admin access requires MFA"}
         return {"decision": "allow", "reason": "admin access allowed"}
 
-    # HR rules
     if role == "HR":
         if resource.startswith("/hr-app"):
             return {"decision": "allow", "reason": "HR allowed for HR resource"}
         return {"decision": "deny", "reason": "HR cannot access this resource"}
 
-    # Finance rules — require MFA
     if role == "Finance":
         if not mfa:
             return {"decision": "deny", "reason": "finance access requires MFA"}
@@ -69,20 +46,18 @@ def evaluate_policy(role: str, resource: str, mfa: bool,
             return {"decision": "allow", "reason": "Finance allowed for finance resource"}
         return {"decision": "deny", "reason": "Finance cannot access this resource"}
 
-    # Developer rules
     if role == "Developer":
         if resource.startswith("/dev-app"):
             return {"decision": "allow", "reason": "Developer allowed for dev resource"}
         return {"decision": "deny", "reason": "Developer cannot access this resource"}
 
-    # SecurityAnalyst — read-only access to HR and logs
     if role == "SecurityAnalyst":
         if resource.startswith("/hr-app"):
             return {"decision": "allow", "reason": "SecurityAnalyst read access to HR"}
         return {"decision": "deny", "reason": "SecurityAnalyst cannot access this resource"}
 
     return {"decision": "deny", "reason": "unknown role or unauthorized access"}
-    
+
 
 @app.route("/evaluate", methods=["POST"])
 def evaluate():
@@ -102,14 +77,13 @@ def evaluate():
 
     result = evaluate_policy(role, resource, mfa, ip, device_id, device_trust)
 
-    with open(LOG_FILE, "a") as f:
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(f"{datetime.now().isoformat()} EVENT=POLICY_DECISION "
                 f"USER={user} ROLE={role} RESOURCE={resource} "
                 f"IP={ip} DEVICE={device_id} MFA={mfa} "
                 f"DECISION={result['decision']} REASON={result['reason']}\n")
 
     print(f"[Policy Engine] Decision: {result['decision']} | Reason: {result['reason']}")
-
     return jsonify(result), 200
 
 

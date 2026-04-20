@@ -4,6 +4,63 @@
   <meta charset="UTF-8">
   <title>Enterprise Zero Trust — Login</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0ecff, #f4f7fb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+  
+    .login-card {
+      background: white;
+      width: 420px;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+  
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+  
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+  
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      box-sizing: border-box;
+    }
+  
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  
+    button:hover {
+      background: #1d4ed8;
+    }
+  
+    .note {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+  </style>
+  
+  <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -246,7 +303,7 @@
   </div>
 
   <script>
-    const GATEWAY = "http://localhost:5000";
+    const GATEWAY = `${window.location.protocol}//${window.location.hostname}:5000`;
 
     let currentFlowId = "";
     let currentUser = "";
@@ -312,6 +369,7 @@
         const resp = await fetch(`${GATEWAY}/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({ username, password })
         });
 
@@ -352,6 +410,7 @@
         const resp = await fetch(`${GATEWAY}/mfa/setup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({ flow_id: flowId })
         });
 
@@ -389,7 +448,7 @@
         const resp = await fetch(`${GATEWAY}/mfa/complete`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          credentials: "include",   // needed for session cookie
+          credentials: "include",
           body: JSON.stringify({ flow_id: currentFlowId, otp })
         });
 

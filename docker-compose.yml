@@ -74,6 +74,8 @@ services:
       - "5010:5010"
     volumes:
       - mfa-secrets:/app/mfa_secrets
+    networks:
+      - auth-net
     depends_on:
       keycloak:
         condition: service_started
