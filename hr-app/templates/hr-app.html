@@ -1,3 +1,63 @@
-<h1>What would you like to do?</h1>
-<a href="http://127.0.0.1:5000/hr-app/employees">Manage Employees</a>
-<a href="http://127.0.0.1:5000/hr-app/leave">Manage Leaves</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR Portal</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7fb; margin: 0; padding: 0; color: #1f2937; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .portal-title { margin: 0; font-size: 28px; }
+    .portal-subtitle { margin: 4px 0 0; color: #6b7280; }
+    .logout-btn { text-decoration: none; color: white; background: #dc2626; padding: 10px 16px; border-radius: 8px; font-weight: bold; }
+    .hero { background: white; padding: 24px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .hero h2 { margin-top: 0; }
+    .hero p { color: #6b7280; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .card h3 { margin-top: 0; }
+    .card p { color: #6b7280; }
+    .card a { display: inline-block; margin-top: 12px; text-decoration: none; color: white; background: #2563eb; padding: 10px 14px; border-radius: 8px; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); text-align: center; }
+    .stat-card h3 { margin: 0; font-size: 28px; }
+    .stat-card p { margin: 8px 0 0; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div>
+        <h1 class="portal-title">HR Portal</h1>
+        <p class="portal-subtitle">Protected by Zero Trust Gateway</p>
+      </div>
+      <a class="logout-btn" href="http://localhost:5000/logout">Logout</a>
+    </div>
+
+    <div class="hero">
+      <h2>Welcome, HR Team</h2>
+      <p>You are securely logged in via Zero Trust Gateway. All access is monitored and logged.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><h3>9</h3><p>Employee Records</p></div><!--Samarth-->
+      <div class="stat-card"><h3>7</h3><p>Leave Requests</p></div><!--Samarth-->
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Employee Records</h3>
+        <p>View and manage all employee information, departments, and roles.</p>
+        <a href="http://localhost:5000/hr-app/employees">Manage Employees</a>
+      </div>
+
+      <div class="card">
+        <h3>Leave Management</h3>
+        <p>Review leave requests and manage approvals.</p>
+        <a href="http://localhost:5000/hr-app/leave">Open Leave Portal</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

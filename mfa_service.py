@@ -198,6 +198,6 @@ def disable():
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("MFA_PORT", "5010"))
+    port = int(os.getenv("MFA_PORT", "5011")) #samarth
     print(f"[MFA Service] Running on port {port}")
     app.run(host="0.0.0.0", port=port, debug=False)
