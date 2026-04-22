@@ -257,7 +257,7 @@
           alice_hr / password123 → HR Portal<br>
           bob_finance / password123 → Finance Portal<br>
           charlie_dev / password123 → Dev Portal<br>
-          admin_user / admin_secure_pass → HR Portal
+          admin_user / admin_secure_pass → Admin Portal
         </div>
       </div>
 
@@ -373,9 +373,29 @@
           body: JSON.stringify({ username, password })
         });
 
-        const data = await resp.json();
         document.getElementById("loginLoading").style.display = "none";
         document.getElementById("loginBtn").disabled = false;
+
+        const contentType = resp.headers.get("content-type") || "";
+
+        if (resp.status === 429) {
+          const bodyText = await resp.text();
+          const waitMatch = bodyText.match(/Please wait\s+(\d+)\s+minutes?/i);
+          const waitText = waitMatch ? ` Please wait ${waitMatch[1]} minute(s) before trying again.` : " Please wait a few minutes before trying again.";
+          showError(
+            "loginError",
+            "Too many failed login attempts from this IP address. Access is temporarily locked." + waitText
+          );
+          return;
+        }
+
+        if (!contentType.includes("application/json")) {
+          const bodyText = await resp.text();
+          showError("loginError", bodyText || "Unexpected response from the gateway.");
+          return;
+        }
+
+        const data = await resp.json();
 
         if (!resp.ok) {
           showError("loginError", data.error || "Login failed. Please try again.");

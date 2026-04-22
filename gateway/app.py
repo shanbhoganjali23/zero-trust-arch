@@ -601,7 +601,7 @@ def monitoring():
       <div class="events">
         {events_html if events_html else '<p style="color:#999; padding:1rem;">No events logged yet. Start testing to see events here.</p>'}
       </div>
-      <p class="note">🟢 Green = granted/success &nbsp; 🔴 Red = denied/failed &nbsp; 🟡 Orange = incident/lockout</p>
+   <!--   <p class="note">🟢 Green = granted/success &nbsp; 🔴 Red = denied/failed &nbsp; 🟡 Orange = incident/lockout</p> -->
     </div>
   </div>
 </body>
