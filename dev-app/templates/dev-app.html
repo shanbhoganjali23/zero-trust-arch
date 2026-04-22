@@ -1,3 +1,63 @@
-<h1>What would you like to do?</h1>
-<a href="http://127.0.0.1:5000/dev-app/repos">Manage Repositories</a>
-<a href="http://127.0.0.1:5000/dev-app/builds">Manage Build Statuses</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Portal</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7fb; margin: 0; padding: 0; color: #1f2937; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .portal-title { margin: 0; font-size: 28px; }
+    .portal-subtitle { margin: 4px 0 0; color: #6b7280; }
+    .logout-btn { text-decoration: none; color: white; background: #dc2626; padding: 10px 16px; border-radius: 8px; font-weight: bold; }
+    .hero { background: white; padding: 24px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .hero h2 { margin-top: 0; }
+    .hero p { color: #6b7280; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .card h3 { margin-top: 0; }
+    .card p { color: #6b7280; }
+    .card a { display: inline-block; margin-top: 12px; text-decoration: none; color: white; background: #2563eb; padding: 10px 14px; border-radius: 8px; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); text-align: center; }
+    .stat-card h3 { margin: 0; font-size: 28px; }
+    .stat-card p { margin: 8px 0 0; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div>
+        <h1 class="portal-title">Developer Portal</h1>
+        <p class="portal-subtitle">Protected by Zero Trust Gateway</p>
+      </div>
+      <a class="logout-btn" href="http://localhost:5000/logout">Logout</a>
+    </div>
+
+    <div class="hero">
+      <h2>Welcome, Developer Team</h2>
+      <p>Developer services are protected and continuously policy-checked before access is allowed.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><h3>1</h3><p>Repositories</p></div>
+      <div class="stat-card"><h3>2</h3><p>Build Jobs Active</p></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Repositories</h3>
+        <p>Access project repositories and code resources.</p>
+        <a href="http://localhost:5000/dev-app/proj">Open Repos</a>
+      </div>
+
+      <div class="card">
+        <h3>Build Status</h3>
+        <p>Review active and recent build pipeline results.</p>
+        <a href="http://localhost:5000/dev-app/buildStatuses">Open Build Status</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

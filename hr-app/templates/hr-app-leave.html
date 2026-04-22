@@ -1,34 +1,61 @@
-<h1>Leave Management</h1>
-<form onsubmit="return addLeave()">
-    <label for="employee_name">Employee Name:</label>
-    <input type="text" id="employee_name" placeholder="Employee Name"/><br>
-    <label for="leave_reason">Reason for Leave:</label>
-    <input type="text" id="leave_reason" placeholder="Reason for Leave"/><br>
-    <label for="start_date">Start Date:</label>
-    <input type="date" id="start_date"/><br>
-    <label for="end_date">End Date:</label>
-    <input type="date" id="end_date"/><br>
-    <button type="submit">Apply for Leave</button>
-</form>
-<a href="http://127.0.0.1:5000/hr-app">Back to Home Page</a>
-<div id="leave-display"></div>
-<script>
-    let leaveList = [];
-    function addLeave() {
-        event.preventDefault();
-        const leave = {
-            employee_name: document.getElementById('employee_name').value,
-            leave_reason: document.getElementById('leave_reason').value,
-            start_date: document.getElementById('start_date').value,
-            end_date: document.getElementById('end_date').value
-        };
-        leaveList.push(leave);
-        let leaveDisplay = document.getElementById('leave-display');
-        leaveDisplay.innerHTML = '';
-        for(let i = 0; i<leaveList.length; i++){
-            leaveDisplay.innerHTML += `<p>${leaveList[i].employee_name} - ${leaveList[i].leave_reason} - ${leaveList[i].start_date} to ${leaveList[i].end_date}</p><br>`;
-        }
-        console.log("Leave applied");
-        return false;
-    }
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leave Management — HR Portal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f4ff; color: #1a1a2e; }
+    .topbar { background: #1a1a2e; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .topbar h1 { font-size: 1.2rem; }
+    .badge { background: #4caf50; color: white; padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.8rem; }
+    .container { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: #666; }
+    .breadcrumb a { color: #3949ab; text-decoration: none; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .stat-card { background: white; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .stat-card .num { font-size: 2rem; font-weight: bold; color: #3949ab; }
+    .stat-card .label { font-size: 0.85rem; color: #666; margin-top: 0.2rem; }
+    .panel { background: white; border-radius: 12px; padding: 1.5rem 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .panel h2 { margin-bottom: 1.2rem; font-size: 1.2rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th { background: #f5f7ff; padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: #3949ab; border-bottom: 2px solid #e0e4f0; }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid #f0f0f0; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafbff; }
+    .status { padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+    .pending { background: #fff8e1; color: #f57f17; }
+    .approved { background: #e8f5e9; color: #2e7d32; }
+    .rejected { background: #fce4ec; color: #c62828; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>🏢 Enterprise Zero Trust — HR Portal</h1>
+    <span class="badge">🔒 Authenticated</span>
+  </div>
+  <div class="container">
+    <div class="breadcrumb"><a href="/hr-app">HR Portal</a> › Leave Management</div>
+    <div class="stats">
+      <div class="stat-card"><div class="num">5</div><div class="label">Pending Requests</div></div>
+      <div class="stat-card"><div class="num">12</div><div class="label">Approved This Month</div></div>
+      <div class="stat-card"><div class="num">2</div><div class="label">Rejected This Month</div></div>
+    </div>
+    <div class="panel">
+      <h2>🌴 Leave Requests</h2>
+      <table>
+        <tr>
+          <th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Reason</th><th>Status</th>
+        </tr>
+        <tr><td>Ethan Singh</td><td>Annual Leave</td><td>Apr 20, 2026</td><td>Apr 30, 2026</td><td>8</td><td>Family vacation</td><td><span class="status approved">Approved</span></td></tr>
+        <tr><td>Charlie Dev</td><td>Sick Leave</td><td>Apr 18, 2026</td><td>Apr 19, 2026</td><td>2</td><td>Medical appointment</td><td><span class="status pending">Pending</span></td></tr>
+        <tr><td>Diana Chen</td><td>Annual Leave</td><td>May 5, 2026</td><td>May 9, 2026</td><td>5</td><td>Personal travel</td><td><span class="status pending">Pending</span></td></tr>
+        <tr><td>George Kim</td><td>Work From Home</td><td>Apr 21, 2026</td><td>Apr 21, 2026</td><td>1</td><td>Home repairs</td><td><span class="status approved">Approved</span></td></tr>
+        <tr><td>Hannah Lee</td><td>Annual Leave</td><td>May 12, 2026</td><td>May 16, 2026</td><td>5</td><td>Vacation</td><td><span class="status pending">Pending</span></td></tr>
+        <tr><td>Fiona Patel</td><td>Sick Leave</td><td>Apr 10, 2026</td><td>Apr 11, 2026</td><td>2</td><td>Flu</td><td><span class="status approved">Approved</span></td></tr>
+        <tr><td>Bob Finance</td><td>Annual Leave</td><td>Apr 25, 2026</td><td>Apr 25, 2026</td><td>1</td><td>Personal</td><td><span class="status rejected">Rejected</span></td></tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

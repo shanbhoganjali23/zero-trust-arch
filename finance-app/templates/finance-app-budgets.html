@@ -1,27 +1,5 @@
-<h1>Budgets by Department</h1>
-<form onsubmit="return addBudget()">
-    <label for="department_name">Department Name:</label>
-    <input type="text" id="department_name" placeholder="Department Name"/><br>
-    <label for="budget_amount">Budget Amount:</label>
-    <input type="number" id="budget_amount" placeholder="Budget Amount"/><br>
-    <button type="submit">Add Budget</button>
-</form>
-<a href="http://127.0.0.1:5000/finance-app">Back to Home Page</a>
-<div id="budget-display"></div>
-<script>
-    let budgetList = [];
-    function addBudget() {
-        event.preventDefault();
-        const budget = {
-            department_name: document.getElementById('department_name').value,
-            budget_amount: document.getElementById('budget_amount').value     
-        }
-        budgetList.push(budget);
-        let budgetDisplay = document.getElementById('budget-display');
-        budgetDisplay.innerHTML = '';
-        for(let i = 0; i<budgetList.length; i++){
-            budgetDisplay.innerHTML += `<p>${budgetList[i].department_name} - $${budgetList[i].budget_amount}</p><br>`;
-        }
-        return false;
-    }
-</script>
+<!DOCTYPE html><html><head><title>Budgets</title></head>
+<body style="font-family:sans-serif;padding:2rem"><h1>📊 Budget Dashboard</h1>
+<table border="1" cellpadding="8"><tr><th>Dept</th><th>Budget</th><th>Spent</th></tr>
+<tr><td>Engineering</td><td>$500,000</td><td>$320,000</td></tr>
+<tr><td>Marketing</td><td>$200,000</td><td>$150,000</td></tr></table></body></html>

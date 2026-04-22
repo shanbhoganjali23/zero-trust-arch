@@ -1,32 +1,81 @@
-version: "3.8"
+version: "3.9"
 
-services:
-  loki:
-    image: grafana/loki:2.9.0
-    ports:
-      - "3100:3100"
-    networks: [otel-net]
-
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.149.0
-    container_name: otel-collector
-    command: ["--config=/etc/otelcol/config.yaml"]
-    volumes:
-      - ./otel-collector-config.yaml:/etc/otelcol/config.yaml
-    ports:
-      - "4318:4318"
-    depends_on:
-      - loki
-    networks: [otel-net]
-
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
-    depends_on:
-      - loki
-    networks: [otel-net]
+# MICRO-SEGMENTATION: Three isolated Docker networks
+# - frontend-net: only gateway and login server are exposed here
+# - service-net: internal services, only reachable from gateway
+# - auth-net: Keycloak and MFA service, only reachable from gateway
+#
+# This means:
+#   - Users can ONLY reach the gateway (port 5000) and login server (port 5050)
+#   - HR/Finance/Dev apps are NOT directly reachable from outside
+#   - Keycloak is NOT directly reachable from outside (admin port 8080 still exposed for setup)
+#   - Services cannot talk to each other directly — only through gateway
 
 networks:
-  otel-net:
+  frontend-net:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+  service-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+  auth-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+
+volumes:
+  mfa-secrets:
+
+services:
+
+  # -----------------------------------------------------------------------
+  # IDENTITY PROVIDER — auth-net only
+  # Admin port 8080 still exposed for demo/setup purposes
+  # -----------------------------------------------------------------------
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-zt
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./enterprise-zt-realm.json:/opt/keycloak/data/import/realm.json:ro
+    networks:
+      - auth-net
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/8080'"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  # -----------------------------------------------------------------------
+  # MFA SERVICE — auth-net only
+  # NOT exposed to host — only gateway can reach it
+  # -----------------------------------------------------------------------
+  mfa-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.mfa
+    container_name: mfa-service
+    environment:
+      MFA_PORT: "5010"
+      MFA_ADMIN_TOKEN: "change-me"
+      MFA_SECRET_DIR: "/app/mfa_secrets"
+    ports:
+      - "5010:5010"
+    volumes:
+      - mfa-secrets:/app/mfa_secrets
+    networks:
+      - auth-net
+    depends_on:
+      keycloak:
+        condition: service_started

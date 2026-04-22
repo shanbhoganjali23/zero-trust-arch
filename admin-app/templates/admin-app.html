@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finance Portal</title>
+  <title>Admin Portal</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f4f7fb; margin: 0; padding: 0; color: #1f2937; }
     .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
@@ -29,33 +29,47 @@
   <div class="container">
     <div class="topbar">
       <div>
-        <h1 class="portal-title">Finance Portal</h1>
+        <h1 class="portal-title">Admin Portal</h1>
         <p class="portal-subtitle">Protected by Zero Trust Gateway</p>
       </div>
       <a class="logout-btn" href="http://localhost:5000/logout">Logout</a>
     </div>
 
     <div class="hero">
-      <h2>Welcome, Finance Team</h2>
-      <p>Sensitive financial resources are protected with role-based access and MFA enforcement.</p>
+      <h2>Welcome, Administrator</h2>
+      <p>You have privileged access to protected enterprise services and monitoring views.</p>
     </div>
 
     <div class="stat-grid">
-      <div class="stat-card"><h3>2</h3><p>Budget Reports</p></div>
-      <div class="stat-card"><h3>2</h3><p>Invoices Pending</p></div>
+      <div class="stat-card"><h3>4</h3><p>Managed Users</p></div>
+      <div class="stat-card"><h3>4</h3><p>Protected Services</p></div>
+      <!-- <div class="stat-card"><h3>128</h3><p>Policy Decisions Logged</p></div>
+      <div class="stat-card"><h3>6</h3><p>Denied Access Attempts</p></div> -->
     </div>
 
     <div class="grid">
       <div class="card">
-        <h3>Budget Dashboard</h3>
-        <p>View and review departmental budgets.</p>
-        <a href="http://localhost:5000/finance-app/budgets">Open Budgets</a>
+        <h3>HR Portal</h3>
+        <p>Access employee records and HR workflows.</p>
+        <a href="http://localhost:5000/hr-app">Open HR Portal</a>
       </div>
 
       <div class="card">
-        <h3>Invoices</h3>
-        <p>Access invoice tracking and approvals.</p>
-        <a href="http://localhost:5000/finance-app/invoices">View Invoices</a>
+        <h3>Finance Portal</h3>
+        <p>Access budgets, invoices, and finance resources.</p>
+        <a href="http://localhost:5000/finance-app">Open Finance Portal</a>
+      </div>
+
+      <div class="card">
+        <h3>Developer Portal</h3>
+        <p>Access code repositories and build dashboards.</p>
+        <a href="http://localhost:5000/dev-app">Open Developer Portal</a>
+      </div>
+
+      <div class="card">
+        <h3>Security Monitoring</h3>
+        <p>Review security events, denied requests, and incident activity.</p>
+        <a href="http://localhost:5000/monitoring">Open Monitoring</a>
       </div>
     </div>
   </div>
